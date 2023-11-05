@@ -6,11 +6,11 @@ const getTicketById = async (id) => {
   });
 
   if (!res.ok) {
-    throw new Error(`Failed to fetch ticket data. Status: ${res.status}`);
+    console.error("fetch error");
   }
-
   return res.json();
 };
+
 let updateTicketData = {};
 const TicketPage = async ({ params }) => {
   const EDITMODE = params.id === "new" ? false : true;
