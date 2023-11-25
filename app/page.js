@@ -1,31 +1,17 @@
-import React from "react";
 import TicketCard from "./(components)/TicketCard";
+
 
 const getTickets = async () => {
   try {
-    const res = await fetch("http://localhost:3000/api/Tickets", {
-      cache: "no-store",
-    });
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch topics");
-    }
-
-    return res.json();
+    const res = await fetch("http://localhost:3000/api/Tickets", { cache: 'no-store' });
+    return res.json()
   } catch (error) {
-    console.log("Error loading topics: ", error);
+    console.log("failed to get tickets", error);
   }
-};
+}
 
-const Dashboard = async () => {
-  const data = await getTickets();
-
-  // Make sure we have tickets needed for production build.
-  if (!data?.tickets) {
-    return <p>No tickets.</p>;
-  }
-
-  const tickets = data.tickets;
+const Dashboard = () => {
+  const { tickets } = getTickets();
 
   const uniqueCategories = [
     ...new Set(tickets?.map(({ category }) => category)),
